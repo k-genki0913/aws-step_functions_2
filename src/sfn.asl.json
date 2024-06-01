@@ -1,0 +1,48 @@
+{
+  "Comment": "テスト",
+  "StartAt": "StateLambda1",
+  "States": {
+    "StateLambda1": {
+      "Type": "Task",
+      "Resource": "${StateLambda1}",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "ResultPath": "$.result",
+      "Next": "StateLambda2"
+    },
+    "StateLambda2": {
+      "Type": "Task",
+      "Resource": "${StateLambda2}",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "ResultPath": "$.result",
+      "Next": "Check"
+    },
+    "Check": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.result.checkKey",
+          "IsPresent": true,
+          "Next": "StateLambda1"
+        }
+      ],
+      "Default": "Success"
+    },
+    "Success": {
+      "Type": "Succeed"
+    }
+  }
+}
