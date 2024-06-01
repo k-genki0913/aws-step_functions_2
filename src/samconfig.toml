@@ -3,9 +3,9 @@ version = 0.1
 [dev.deploy]
 [dev.deploy.parameters]
 stack_name = "sam-app"
-s3_bucket = "genki-verification"
-s3_prefix = "deploy"
-profile = "Genki0913-root"
+s3_bucket = ""
+s3_prefix = ""
+profile = ""
 region = "ap-northeast-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
